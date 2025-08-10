@@ -1,0 +1,17 @@
+{
+  "extends": "@backstage/cli/config/tsconfig.json",
+  "include": [
+    "plugins/*/src/**/*",
+    "plugins/*/dev/**/*",
+    "packages/*/src/**/*",
+    "packages/*/dev/**/*"
+  ],
+  "exclude": [
+    "plugins/*/dist",
+    "plugins/*/dist-*",
+    "plugins/*/coverage",
+    "packages/*/dist",
+    "packages/*/dist-*",
+    "packages/*/coverage"
+  ]
+}

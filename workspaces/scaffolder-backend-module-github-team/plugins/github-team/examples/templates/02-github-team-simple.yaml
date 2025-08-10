@@ -1,0 +1,64 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: github-team-simple
+  title: Simple GitHub Team Creator
+  description: Create a simple GitHub team without members
+spec:
+  owner: user:guest
+  type: service
+
+  parameters:
+    - title: Team Information
+      required:
+        - organization
+        - teamName
+      properties:
+        organization:
+          title: Organization
+          type: string
+          description: GitHub organization name
+          ui:autofocus: true
+        teamName:
+          title: Team Name
+          type: string
+          description: Name of the team to create
+        description:
+          title: Description
+          type: string
+          description: Team description (optional)
+        privacy:
+          title: Privacy
+          type: string
+          description: Team privacy level
+          enum:
+            - closed
+            - secret
+          default: closed
+
+  steps:
+    - id: create-team
+      name: Create GitHub Team
+      action: github:team:create
+      input:
+        organization: ${{ parameters.organization }}
+        teamName: ${{ parameters.teamName }}
+        description: ${{ parameters.description }}
+        privacy: ${{ parameters.privacy }}
+
+  output:
+    links:
+      - title: Team URL
+        url: ${{ steps['create-team'].output.teamUrl }}
+    text:
+      - title: Team Created Successfully
+        content: |
+          GitHub team **${{ parameters.teamName }}** has been created successfully!
+          
+          **Team Details:**
+          - Organization: ${{ parameters.organization }}
+          - Team ID: ${{ steps['create-team'].output.teamId }}
+          - Team Slug: ${{ steps['create-team'].output.teamSlug }}
+          - Privacy: ${{ parameters.privacy }}
+          
+          You can manage the team at: ${{ steps['create-team'].output.teamUrl }}

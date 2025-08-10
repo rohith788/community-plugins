@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: plugin-scaffolder-backend-module-github-team
+  title: GitHub Team Scaffolder Backend Module
+  description: Creates GitHub teams with member management through Backstage scaffolder
+  annotations:
+    github.com/project-slug: backstage/community-plugins
+    backstage.io/source-location: url:https://github.com/backstage/community-plugins/tree/main/workspaces/scaffolder-backend-module-github-team/plugins/github-team
+spec:
+  type: backstage-backend-plugin-module
+  lifecycle: production
+  owner: community
+  system: backstage
+  dependsOn:
+    - component:scaffolder-backend
